@@ -2,7 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 // import { Inter } from "@next/font/google";
-import { blogData } from "@/data/blogData";
+import blogData from "@/data/blogData";
 import React, { useState } from "react";
 import {
   Box,
@@ -19,7 +19,7 @@ import {
   ListItem,
 } from "@mui/material";
 import { GitHub, LinkedIn } from "@mui/icons-material";
-import { BlogData } from "./types";
+import BlogData from "./types";
 import useActiveCategory from "@/hooks/useActiveCategory";
 
 // const inter = Inter({ subsets: ["latin"] });

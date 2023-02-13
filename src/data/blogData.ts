@@ -1,4 +1,4 @@
-export const blogData = {
+const blogData = {
   "posts": [
     {
       "id": 126,
@@ -500,3 +500,5 @@ export const blogData = {
     }
   ]
 }
+
+export default blogData;

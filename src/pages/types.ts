@@ -13,7 +13,7 @@ interface BlogCategory {
   slug: string;
 }
 
-export interface BlogData {
+export default interface BlogData {
   posts: BlogPost[];
   categories: BlogCategory[];
 }
