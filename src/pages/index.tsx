@@ -19,7 +19,7 @@ import {
   ListItem,
 } from "@mui/material";
 import { GitHub, LinkedIn } from "@mui/icons-material";
-import BlogData from "./types";
+import BlogData from "../types/types";
 import useActiveCategory from "@/hooks/useActiveCategory";
 
 // const inter = Inter({ subsets: ["latin"] });
