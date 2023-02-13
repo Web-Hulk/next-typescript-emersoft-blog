@@ -1,30 +1,28 @@
 import Head from "next/head";
 import Image from "next/image";
-import { Inter } from "@next/font/google";
+import Link from "next/link";
+// import { Inter } from "@next/font/google";
 import { blogData } from "@/data/blogData";
-import { useState } from "react";
+import React, { useState } from "react";
+import {
+  Box,
+  Typography,
+  List,
+  TextField,
+  Stack,
+  Pagination,
+  Grid,
+  Card,
+  CardMedia,
+  CardContent,
+  Chip,
+  ListItem,
+} from "@mui/material";
+import { GitHub, LinkedIn } from "@mui/icons-material";
+import { BlogData } from "./types";
+import useActiveCategory from "@/hooks/useActiveCategory";
 
-const inter = Inter({ subsets: ["latin"] });
-
-interface BlogPost {
-  id: number;
-  slug: string;
-  title: string;
-  excerpt: string;
-  imageUrl: string;
-  categories: number[];
-}
-
-interface BlogCategory {
-  id: number;
-  name: string;
-  slug: string;
-}
-
-interface BlogData {
-  posts: BlogPost[];
-  categories: BlogCategory[];
-}
+// const inter = Inter({ subsets: ["latin"] });
 
 const LINKS = [
   {
@@ -60,17 +58,37 @@ const LINKS = [
 export default function Blog() {
   const [stableBlogData, setStableBlogData] = useState<BlogData>(blogData);
   const [blogPosts, setBlogPosts] = useState<BlogData>(blogData);
-  const [activeCategory, setActiveCategory] = useState<string>("");
+  const { activeCategory, handleCategoryButton } = useActiveCategory();
 
-  const filteredPostsBasedOnCategoryId = (id: number) => {
+  const filteredPostsByCategoryId = (id: number, name: string) => {
     console.log("Chosen ID", id);
     console.log("Filtered table", {
-      posts: stableBlogData.posts.filter((post) => post.categories[0] === id),
+      posts: stableBlogData.posts.filter((post) =>
+        post.categories.includes(id)
+      ),
     });
 
     setBlogPosts((prevState) => ({
       ...prevState,
-      posts: stableBlogData.posts.filter((post) => post.categories[0] === id),
+      posts: stableBlogData.posts.filter((post) =>
+        post.categories.includes(id)
+      ),
+      categories: prevState.categories,
+    }));
+
+    handleCategoryButton(name);
+  };
+
+  const filteredPostsBySearchInput = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    console.log(e.target.value);
+
+    setBlogPosts((prevState) => ({
+      ...prevState,
+      posts: stableBlogData.posts.filter(({ title }) =>
+        title.toLowerCase().includes(e.target.value.toLowerCase())
+      ),
       categories: prevState.categories,
     }));
   };
@@ -85,162 +103,188 @@ export default function Blog() {
       </Head>
 
       <main>
-        <div className="max-w-screen-xl w-full my-0 mx-auto">
+        <Box className="max-w-screen-xl w-11/12 my-0 mx-auto">
           <header className="flex justify-between items-center py-12">
-            <div className="flex items-center">
+            <Box className="flex items-center">
               <Image
                 src={"/apple-touch-icon.png"}
                 width={150}
                 height={150}
-                alt="Creator Avatar"
+                alt="Avatar"
+                className="w-12 h-12 mr-4 rounded-full"
                 priority
-                style={{ borderRadius: "100%", width: "48px", height: "48px" }}
-                className="mr-4"
               />
               <span className="font-bold">Patryk Kwasek</span>
-            </div>
-            <ul className="flex row">
-              {LINKS.map(({ href, name }) => (
-                <li key={name}>
-                  <a
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="py-4 px-3 hover:text-emersoft-green"
+            </Box>
+
+            <nav className="flex row">
+              <ul className="flex row">
+                {LINKS.map(({ href, name }) => (
+                  <li key={name}>
+                    <Link
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-3 hover:text-emersoft-green focus:outline-none focus:shadow-outline"
+                    >
+                      {name}
+                    </Link>
+                  </li>
+                ))}
+                <li>
+                  <Link
+                    href="http://localhost:3000/"
+                    className="text-white bg-emersoft-green font-bold py-4 px-3 hover:bg-emersoft-black duration-500 focus:outline-none focus:shadow-outline"
                   >
-                    {name}
-                  </a>
+                    Blog
+                  </Link>
                 </li>
-              ))}
-              <li>
-                <a
-                  href="http://localhost:3000/"
-                  className="text-white bg-emersoft-green font-bold py-4 px-3 hover:bg-emersoft-black duration-500"
-                >
-                  Blog
-                </a>
-              </li>
-            </ul>
+              </ul>
+            </nav>
           </header>
 
-          <div>
-            <h3 className="text-emersoft-green text-3xl font-bold mb-4 uppercase">
+          <Box>
+            <Typography
+              variant="h3"
+              className="text-emersoft-green text-3xl font-bold mb-4 uppercase"
+            >
               Hello, my name is Patryk
-            </h3>
-            <h1 className="text-7xl font-bold">Emersoft README.md</h1>
+            </Typography>
+            <Typography variant="h1" className="text-4xl lg:text-7xl font-bold">
+              Emersoft README.md
+            </Typography>
 
-            <div>
-              <input
-                type="text"
-                placeholder="Search in Readme..."
-                className=""
+            <Box>
+              <TextField
+                type="search"
+                // placeholder="Search in Readme..."
+                placeholder="Search blog posts..."
+                onChange={filteredPostsBySearchInput}
+                className="w-full my-4"
               />
-            </div>
+            </Box>
 
-            <div>
+            <Box className="flex overflow-y-auto">
               {stableBlogData.categories.map(({ id, name, slug }) => (
-                <button
+                <Chip
                   key={slug}
-                  className="border border-emersoft-green mb-3 mr-2 px-6 py-1.5 font-bold rounded-3xl hover:text-white hover:bg-emersoft-green duration-500"
-                  onClick={() => filteredPostsBasedOnCategoryId(id)}
-                >
-                  {name}
-                </button>
+                  label={name}
+                  variant="filled"
+                  className={`${
+                    slug === activeCategory && "text-white bg-black"
+                  } mb-3 mr-2 px-1 font-bold hover:bg-black hover:text-white`}
+                  onClick={() => filteredPostsByCategoryId(id, slug)}
+                />
               ))}
-            </div>
+            </Box>
 
-            <div>
-              <h2 className="text-3xl font-medium">Featured Posts</h2>
+            <Box>
+              <Typography variant="h2" className="text-3xl font-medium mb-3">
+                Featured Posts
+              </Typography>
 
-              <div>
-                <ul
-                  style={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  {blogPosts.posts.map(
-                    ({ id, title, excerpt, imageUrl, categories }) => (
-                      <li
-                        key={`Post-${id}`}
-                        className="blog-post"
-                        style={{
-                          border: "1px solid gray",
-                          maxWidth: "300px",
-                          width: "100%",
-                          minHeight: "500px",
-                          height: "100%",
-                          borderRadius: "25px",
-                          margin: "20px 0",
-                          cursor: "pointer",
-                        }}
-                      >
-                        <Image
-                          src={imageUrl}
-                          width={800}
-                          height={600}
-                          alt={title}
-                          priority
-                          style={{
-                            borderTopLeftRadius: "25px",
-                            borderTopRightRadius: "25px",
-                            width: "100%",
-                            height: "100%",
-                          }}
+              <Grid container spacing={5}>
+                {blogPosts.posts.map(
+                  ({ id, title, excerpt, imageUrl, categories }) => (
+                    <Grid item xs={12} sm={6} lg={4} key={`Post-${id}`}>
+                      <Card className="min-h-[525px] h-full rounded-3xl cursor-pointer">
+                        <CardMedia
+                          className="w-full h-1/2 rounded-t-3xl"
+                          image={imageUrl}
+                          title={title}
                         />
 
-                        <div style={{ padding: "0 12px" }}>
-                          <p>
-                            {categories.map((category, index) => (
-                              <span key={index}>
-                                {stableBlogData.categories
-                                  .filter(
-                                    (stableCategory) =>
-                                      stableCategory.id === category
-                                  )
-                                  .map((item) => item.name)}
-                              </span>
-                            ))}
-                          </p>
+                        <CardContent>
+                          <Typography className="my-3 font-bold">
+                            {categories.map((categoryId) => {
+                              const filteredCategory =
+                                stableBlogData.categories.find(
+                                  (category) => category.id === categoryId
+                                );
 
-                          <h2>{title}</h2>
+                              if (
+                                !filteredCategory ||
+                                filteredCategory.name === "All"
+                              ) {
+                                return null;
+                              }
 
-                          <p>{excerpt}</p>
-                        </div>
-                      </li>
-                    )
-                  )}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
+                              return (
+                                <span
+                                  key={filteredCategory.id}
+                                  className="mr-2"
+                                >
+                                  {filteredCategory.name}
+                                </span>
+                              );
+                            })}
+                          </Typography>
+
+                          <Typography
+                            variant="h5"
+                            component="h2"
+                            className="mb-3"
+                          >
+                            {title}
+                          </Typography>
+
+                          <Typography variant="body2" component="p">
+                            {excerpt}
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  )
+                )}
+              </Grid>
+
+              {/* Pagination */}
+              <Stack spacing={2}>
+                <Pagination
+                  count={Math.ceil(blogPosts.posts.length / 6)}
+                  siblingCount={1}
+                  boundaryCount={1}
+                  variant="outlined"
+                  shape="rounded"
+                  className="flex justify-center my-4"
+                />
+              </Stack>
+            </Box>
+          </Box>
+        </Box>
 
         <footer className="border-t border-gray-300 py-8">
-          <div className="flex max-w-screen-xl w-full my-0 mx-auto">
-            <div className="mr-14">
-              <strong>LinekdIn</strong>
-              <p>
-                <a
-                  href="https://pl.linkedin.com/in/patryk-kwasek-0b9a821b3"
-                  className="underline"
-                >
-                  Patryk Kwasek
-                </a>
-              </p>
-            </div>
+          <Box className="flex justify-end max-w-screen-xl w-11/12 my-0 mx-auto">
+            <Typography>
+              <Link
+                href="https://pl.linkedin.com/in/patryk-kwasek-0b9a821b3"
+                className="underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <LinkedIn
+                  className="text-[#0077B5]"
+                  fontSize="medium"
+                  titleAccess="LinkedIn profile"
+                />
+              </Link>
+            </Typography>
 
-            <div>
-              <strong>Github Icon</strong>
-              <p>
-                <a href="https://github.com/Web-Hulk" className="underline">
-                  Github
-                </a>
-              </p>
-            </div>
-          </div>
+            <Typography>
+              <Link
+                href="https://github.com/Web-Hulk"
+                className="underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <GitHub
+                  className="text-black"
+                  fontSize="medium"
+                  titleAccess="Github profile"
+                />
+              </Link>
+            </Typography>
+          </Box>
         </footer>
       </main>
     </>

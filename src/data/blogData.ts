@@ -7,6 +7,7 @@ export const blogData = {
       "excerpt": "Donec ut orci porttitor, sagittis mauris nec, semper metus. Vestibulum eget justo viverra, lobortis est in, pretium enim.",
       "imageUrl": "https://picsum.photos/id/237/800/600",
       "categories": [
+        1,
         7
       ]
     },
@@ -17,6 +18,7 @@ export const blogData = {
       "excerpt": "Integer et ipsum ut enim porttitor vulputate. Nunc a nisi finibus, scelerisque erat in, elementum eros.",
       "imageUrl": "https://picsum.photos/id/238/800/600",
       "categories": [
+        1,
         3
       ]
     },
@@ -27,6 +29,7 @@ export const blogData = {
       "excerpt": "Nunc rhoncus lorem a pretium interdum. Etiam vulputate neque eget risus congue ullamcorper ac sed nulla.",
       "imageUrl": "https://picsum.photos/id/239/800/600",
       "categories": [
+        1,
         5
       ]
     },
@@ -37,6 +40,7 @@ export const blogData = {
       "excerpt": "Proin ac lorem efficitur, finibus tellus et, gravida ante. Phasellus ac magna eget lectus venenatis laoreet.",
       "imageUrl": "https://picsum.photos/id/240/800/600",
       "categories": [
+        1,
         6,
         7
       ]
@@ -48,6 +52,7 @@ export const blogData = {
       "excerpt": "Ut auctor tortor eu diam vestibulum mattis. Phasellus tempor mi eu mollis finibus.",
       "imageUrl": "https://picsum.photos/id/241/800/600",
       "categories": [
+        1,
         6
       ]
     },
@@ -58,6 +63,7 @@ export const blogData = {
       "excerpt": "Etiam ultricies ex et sem blandit pulvinar. Mauris aliquet lorem euismod iaculis faucibus.",
       "imageUrl": "https://picsum.photos/id/242/800/600",
       "categories": [
+        1,
         7,
         8
       ]
@@ -69,6 +75,7 @@ export const blogData = {
       "excerpt": "Vivamus ornare sem vel nisl facilisis, eu faucibus metus hendrerit. Etiam scelerisque dolor sed placerat pulvinar.",
       "imageUrl": "https://picsum.photos/id/243/800/600",
       "categories": [
+        1,
         8
       ]
     },
@@ -79,6 +86,7 @@ export const blogData = {
       "excerpt": "Fusce ullamcorper magna eu libero mollis lobortis. Praesent non dui eu felis facilisis mattis id non neque.",
       "imageUrl": "https://picsum.photos/id/244/800/600",
       "categories": [
+        1,
         8
       ]
     },
@@ -89,6 +97,7 @@ export const blogData = {
       "excerpt": "Mauris lobortis massa tristique neque sodales, et lobortis nisl sollicitudin. Morbi sit amet libero vitae orci euismod pellentesque.",
       "imageUrl": "https://picsum.photos/id/236/800/600",
       "categories": [
+        1,
         4,
         5
       ]
@@ -100,6 +109,7 @@ export const blogData = {
       "excerpt": "Morbi at odio elementum, congue eros quis, efficitur augue. Etiam eu ex fermentum urna vulputate commodo et ac massa.",
       "imageUrl": "https://picsum.photos/id/235/800/600",
       "categories": [
+        1,
         4,
         5
       ]
@@ -111,6 +121,7 @@ export const blogData = {
       "excerpt": "Etiam a nibh porttitor, blandit magna a, varius velit. Nulla tempus dui vel dolor lobortis luctus.",
       "imageUrl": "https://picsum.photos/id/247/800/600",
       "categories": [
+        1,
         5,
         6
       ]
@@ -122,6 +133,7 @@ export const blogData = {
       "excerpt": "Aenean mollis neque tempus, finibus eros non, mollis est. Etiam efficitur neque scelerisque ullamcorper lacinia.",
       "imageUrl": "https://picsum.photos/id/248/800/600",
       "categories": [
+        1,
         3,
         4
       ]
@@ -133,6 +145,7 @@ export const blogData = {
       "excerpt": "Praesent imperdiet sapien faucibus libero pulvinar, vel mollis nunc accumsan. Ut molestie leo ac dui congue, eget viverra urna eleifend.",
       "imageUrl": "https://picsum.photos/id/249/800/600",
       "categories": [
+        1,
         6,
         8
       ]
@@ -144,6 +157,7 @@ export const blogData = {
       "excerpt": "Pellentesque nec ligula eu tortor imperdiet dignissim. Proin molestie est eget dignissim lacinia.",
       "imageUrl": "https://picsum.photos/id/250/800/600",
       "categories": [
+        1,
         3
       ]
     },
@@ -154,6 +168,7 @@ export const blogData = {
       "excerpt": "Cras sed quam molestie, dapibus dolor at, tempus tellus. Nullam nec eros in felis posuere faucibus vitae semper ante.",
       "imageUrl": "https://picsum.photos/id/251/800/600",
       "categories": [
+        1,
         3,
         8
       ]
@@ -165,6 +180,7 @@ export const blogData = {
       "excerpt": "Cras lacinia turpis eget erat maximus, in blandit ex rhoncus. Morbi eu nibh cursus, dapibus dui a, vestibulum dolor.",
       "imageUrl": "https://picsum.photos/id/252/800/600",
       "categories": [
+        1,
         4
       ]
     },
@@ -175,6 +191,7 @@ export const blogData = {
       "excerpt": "Donec luctus justo tempus mi elementum, ac varius elit sollicitudin. Sed pulvinar ex ac libero pharetra, a molestie sem dignissim.",
       "imageUrl": "https://picsum.photos/id/253/800/600",
       "categories": [
+        1,
         8
       ]
     },
@@ -185,6 +202,7 @@ export const blogData = {
       "excerpt": "Mauris sed ipsum ut ligula efficitur tempus sit amet nec risus. Nulla placerat ex eu metus bibendum volutpat.",
       "imageUrl": "https://picsum.photos/id/254/800/600",
       "categories": [
+        1,
         7
       ]
     },
@@ -195,6 +213,7 @@ export const blogData = {
       "excerpt": "Phasellus mattis nisi fermentum, porttitor lacus ornare, scelerisque ipsum. Fusce tincidunt dui quis urna congue, id mattis augue pretium.",
       "imageUrl": "https://picsum.photos/id/255/800/600",
       "categories": [
+        1,
         5
       ]
     },
@@ -205,6 +224,7 @@ export const blogData = {
       "excerpt": "Aliquam aliquet turpis sit amet sapien ultrices vestibulum. Suspendisse eget nulla id nibh tincidunt facilisis at et augue.",
       "imageUrl": "https://picsum.photos/id/256/800/600",
       "categories": [
+        1,
         5
       ]
     },
@@ -215,6 +235,7 @@ export const blogData = {
       "excerpt": "Aenean quis justo cursus, efficitur sem at, fermentum orci. Cras non urna dictum est sagittis vehicula a quis libero.",
       "imageUrl": "https://picsum.photos/id/257/800/600",
       "categories": [
+        1,
         3
       ]
     },
@@ -225,6 +246,7 @@ export const blogData = {
       "excerpt": "Nulla ut ligula quis ex tincidunt vehicula. In fringilla justo non lorem tempor, nec fermentum felis blandit.",
       "imageUrl": "https://picsum.photos/id/258/800/600",
       "categories": [
+        1,
         4,
         5
       ]
@@ -236,6 +258,7 @@ export const blogData = {
       "excerpt": "Nullam vitae purus vel orci mollis mattis. Suspendisse et turpis vitae est venenatis sodales.",
       "imageUrl": "https://picsum.photos/id/259/800/600",
       "categories": [
+        1,
         7,
         8
       ]
@@ -247,6 +270,7 @@ export const blogData = {
       "excerpt": "Morbi tincidunt urna sit amet accumsan molestie. Aenean volutpat diam vitae sapien auctor, non consectetur nulla aliquet.",
       "imageUrl": "https://picsum.photos/id/260/800/600",
       "categories": [
+        1,
         3,
         7
       ]
@@ -258,6 +282,7 @@ export const blogData = {
       "excerpt": "Cras in nunc id nisl elementum dictum. Donec sit amet arcu vulputate, malesuada tellus et, semper lectus.",
       "imageUrl": "https://picsum.photos/id/261/800/600",
       "categories": [
+        1,
         5,
         6
       ]
@@ -269,6 +294,7 @@ export const blogData = {
       "excerpt": "Cras porta diam pulvinar, viverra odio at, faucibus lorem. Integer iaculis nunc a sodales sagittis.",
       "imageUrl": "https://picsum.photos/id/234/800/600",
       "categories": [
+        1,
         8
       ]
     },
@@ -279,6 +305,7 @@ export const blogData = {
       "excerpt": "Aliquam condimentum mauris nec semper tristique. Praesent porta lorem eget lectus viverra convallis.",
       "imageUrl": "https://picsum.photos/id/263/800/600",
       "categories": [
+        1,
         8,
         4
       ]
@@ -290,6 +317,7 @@ export const blogData = {
       "excerpt": "Integer vitae sem sed enim vehicula volutpat. Duis eget odio ac lorem feugiat aliquam eu nec nisl.",
       "imageUrl": "https://picsum.photos/id/264/800/600",
       "categories": [
+        1,
         6,
         4
       ]
@@ -301,6 +329,7 @@ export const blogData = {
       "excerpt": "Nam vel lacus a est tempor iaculis. Praesent quis est ut sem tempus facilisis.",
       "imageUrl": "https://picsum.photos/id/265/800/600",
       "categories": [
+        1,
         4,
         5
       ]
@@ -312,6 +341,7 @@ export const blogData = {
       "excerpt": "Pellentesque vitae diam vel felis sagittis placerat eu non nibh. Pellentesque auctor lectus a neque consectetur, vitae tristique ligula vulputate.",
       "imageUrl": "https://picsum.photos/id/266/800/600",
       "categories": [
+        1,
         8,
         7
       ]
@@ -323,6 +353,7 @@ export const blogData = {
       "excerpt": "Praesent laoreet sapien non purus maximus, eu placerat arcu venenatis. Aliquam ornare nunc eleifend ex maximus, nec pretium mi dapibus.",
       "imageUrl": "https://picsum.photos/id/267/800/600",
       "categories": [
+        1,
         8,
         7
       ]
@@ -334,6 +365,7 @@ export const blogData = {
       "excerpt": "Proin molestie magna ut nisi porttitor, nec accumsan arcu interdum. Ut pulvinar metus quis urna volutpat ullamcorper.",
       "imageUrl": "https://picsum.photos/id/268/800/600",
       "categories": [
+        1,
         8,
         4
       ]
@@ -345,6 +377,7 @@ export const blogData = {
       "excerpt": "Phasellus vel lorem blandit, euismod leo ut, porttitor dui. Curabitur quis odio vel lorem efficitur dapibus vel id nibh.",
       "imageUrl": "https://picsum.photos/id/269/800/600",
       "categories": [
+        1,
         5
       ]
     },
@@ -355,6 +388,7 @@ export const blogData = {
       "excerpt": "Nulla ut urna non mauris vehicula finibus nec sit amet urna. Aenean convallis justo eget leo auctor blandit.",
       "imageUrl": "https://picsum.photos/id/270/800/600",
       "categories": [
+        1,
         7
       ]
     },
@@ -365,6 +399,7 @@ export const blogData = {
       "excerpt": "Curabitur id quam vitae ex vehicula finibus quis in odio. Integer bibendum nisl a tristique hendrerit.",
       "imageUrl": "https://picsum.photos/id/271/800/600",
       "categories": [
+        1,
         4,
         3
       ]
@@ -376,6 +411,7 @@ export const blogData = {
       "excerpt": "Donec mollis turpis varius sapien tristique ornare. Cras ut diam quis massa sodales interdum.",
       "imageUrl": "https://picsum.photos/id/272/800/600",
       "categories": [
+        1,
         4
       ]
     },
@@ -386,6 +422,7 @@ export const blogData = {
       "excerpt": "Sed non felis sit amet nibh fringilla commodo. Aenean ut neque mattis, hendrerit lorem ut, ultrices diam.",
       "imageUrl": "https://picsum.photos/id/273/800/600",
       "categories": [
+        1,
         4,
         5
       ]
@@ -397,6 +434,7 @@ export const blogData = {
       "excerpt": "Vivamus imperdiet sem sed nisi tempus, quis lacinia lorem dictum. Nullam vel lectus sit amet justo sagittis sodales.",
       "imageUrl": "https://picsum.photos/id/274/800/600",
       "categories": [
+        1,
         4,
         5
       ]
@@ -408,6 +446,7 @@ export const blogData = {
       "excerpt": "Phasellus gravida sem non ex aliquet, sed iaculis risus iaculis. Quisque molestie diam eu quam lobortis, at tincidunt nulla feugiat.",
       "imageUrl": "https://picsum.photos/id/275/800/600",
       "categories": [
+        1,
         8
       ]
     },
@@ -418,11 +457,17 @@ export const blogData = {
       "excerpt": "Suspendisse a nunc eu velit sagittis laoreet. Phasellus commodo velit scelerisque, scelerisque risus ut, imperdiet magna.",
       "imageUrl": "https://picsum.photos/id/276/800/600",
       "categories": [
+        1,
         6
       ]
     }
   ],
   "categories": [
+    {
+      "id": 1,
+      "name": "All",
+      "slug": "all"
+    },
     {
       "id": 3,
       "name": "Books",
