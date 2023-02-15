@@ -19,7 +19,7 @@ const BlogPostItem = ({
   return (
     <Grid item xs={12} sm={6} lg={4}>
       {/* Card component to display blog post */}
-      <Card className="min-h-[525px] h-full rounded-3xl cursor-pointer">
+      <Card className="min-h-[525px] h-full rounded-3xl cursor-pointer shadow-lg shadow-slate-200 hover:-translate-y-4">
         {/* Display the post's featured image */}
         <CardMedia
           className="w-full h-1/2 rounded-t-3xl"
@@ -29,7 +29,7 @@ const BlogPostItem = ({
 
         <CardContent>
           {/* Display the post's categories */}
-          <Typography className="my-3 font-bold">
+          <Typography className="my-2 text-blue-600 font-bold">
             {categories.map((categoryId: number) => {
               const filteredCategory = stableBlogData.categories.find(
                 (category) => category.id === categoryId
@@ -51,12 +51,16 @@ const BlogPostItem = ({
           </Typography>
 
           {/* Display the post's title */}
-          <Typography variant="h5" component="h2" className="mb-3">
+          <Typography
+            variant="h5"
+            component="h2"
+            className="mb-3 font-semibold"
+          >
             {title}
           </Typography>
 
           {/* Display the post's excerpt */}
-          <Typography variant="body2" component="p">
+          <Typography variant="body2" component="p" className="text-gray-400">
             {excerpt}
           </Typography>
         </CardContent>

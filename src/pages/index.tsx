@@ -1,14 +1,14 @@
+import { useState, useEffect } from "react";
 import Head from "next/head";
+import { Box, TextField, Typography } from "@mui/material";
 import blogData from "@/data/blogData";
-import React, { useState } from "react";
-import { Box, Typography, TextField } from "@mui/material";
-import BlogData from "../types/types";
 import useActiveCategory from "@/hooks/useActiveCategory";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import BlogPosts from "@/components/BlogPosts/BlogPosts";
 import ChipFilters from "@/components/ChipFilters/ChipFilters";
 import NoResultsFound from "@/components/Errors/NoResultsFound";
+import BlogData from "../types/types";
 
 /**
  * The main blog page component that displays the blog title, search input field,
@@ -20,6 +20,9 @@ export default function Blog() {
 
   // Get the active category and category filter function from the useActiveCategory hook.
   const { activeCategory, handleCategoryButton } = useActiveCategory();
+
+  // Set the initial state for the input value to an empty string.
+  const [inputValue, setInputValue] = useState<string>("");
 
   // Set the stableBlogData variable to the initial blogData value imported above.
   const stableBlogData: BlogData = blogData;
@@ -60,6 +63,7 @@ export default function Blog() {
   ) => {
     // Debugging console log
     console.log(e.target.value);
+    setInputValue(e.target.value);
 
     // Define a function that filters the blog posts by the input in the search field.
     const filterPosts = (searchQuery: string) => {
@@ -78,6 +82,10 @@ export default function Blog() {
     timeoutId = setTimeout(() => filterPosts(e.target.value), 500);
   };
 
+  useEffect(() => {
+    setInputValue("");
+  }, [activeCategory]);
+
   return (
     <>
       <Head>
@@ -88,8 +96,12 @@ export default function Blog() {
       </Head>
 
       {/* The main content of the page is contained within the Box and Header components */}
-      <main>
-        <Box className="max-w-screen-xl w-11/12 my-0 mx-auto">
+      <main className="h-screen">
+        <Box
+          className={`max-w-screen-xl w-11/12 my-0 mx-auto ${
+            blogPosts.posts.length === 0 && "h-screen mb-[-90px]"
+          }`}
+        >
           {/* The Header component contains the header of the page with Avatar and Hamburger Menu */}
           <Header />
 
@@ -110,6 +122,7 @@ export default function Blog() {
               type="search"
               placeholder="Search blog posts..."
               onChange={filteredPostsBySearchInput}
+              value={inputValue}
               className="w-full my-4"
             />
 
@@ -134,7 +147,7 @@ export default function Blog() {
         </Box>
 
         {/* The Footer component contains the footer of the page */}
-        <Footer />
+        {/* <Footer /> */}
       </main>
     </>
   );
