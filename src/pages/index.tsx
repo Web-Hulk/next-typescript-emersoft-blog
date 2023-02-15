@@ -1,24 +1,36 @@
 import Head from "next/head";
-// import { Inter } from "@next/font/google";
 import blogData from "@/data/blogData";
 import React, { useState } from "react";
-import { Box, Typography, TextField, Chip } from "@mui/material";
+import { Box, Typography, TextField } from "@mui/material";
 import BlogData from "../types/types";
 import useActiveCategory from "@/hooks/useActiveCategory";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import BlogPosts from "@/components/BlogPosts/BlogPosts";
 import ChipFilters from "@/components/ChipFilters/ChipFilters";
+import NoResultsFound from "@/components/Errors/NoResultsFound";
 
-// const inter = Inter({ subsets: ["latin"] });
-
+/**
+ * The main blog page component that displays the blog title, search input field,
+ * category filter chips, and blog post cards.
+ */
 export default function Blog() {
-  // const [stableBlogData, setStableBlogData] = useState<BlogData>(blogData);
+  // Set the initial state for blog posts to the blogData imported from the data folder.
   const [blogPosts, setBlogPosts] = useState<BlogData>(blogData);
+
+  // Get the active category and category filter function from the useActiveCategory hook.
   const { activeCategory, handleCategoryButton } = useActiveCategory();
+
+  // Set the stableBlogData variable to the initial blogData value imported above.
   const stableBlogData: BlogData = blogData;
 
+  /**
+   * A function that filters the blog posts by the selected category.
+   * @param id The id of the selected category.
+   * @param name The name of the selected category.
+   */
   const filteredPostsByCategoryId = (id: number, name: string) => {
+    // Debugging console logs
     console.log("Chosen ID", id);
     console.log("Filtered table", {
       posts: stableBlogData.posts.filter((post) =>
@@ -26,6 +38,7 @@ export default function Blog() {
       ),
     });
 
+    // Set the blog post state to only show posts that include the selected category.
     setBlogPosts((prevState) => ({
       ...prevState,
       posts: stableBlogData.posts.filter((post) =>
@@ -34,21 +47,35 @@ export default function Blog() {
       categories: prevState.categories,
     }));
 
+    // Update the active category with the selected category name.
     handleCategoryButton(name);
   };
 
+  /**
+   * A function that filters the blog posts by the input in the search field.
+   * @param e The input event with the new search query.
+   */
   const filteredPostsBySearchInput = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
+    // Debugging console log
     console.log(e.target.value);
 
-    setBlogPosts((prevState) => ({
-      ...prevState,
-      posts: stableBlogData.posts.filter(({ title }) =>
-        title.toLowerCase().includes(e.target.value.toLowerCase())
-      ),
-      categories: prevState.categories,
-    }));
+    // Define a function that filters the blog posts by the input in the search field.
+    const filterPosts = (searchQuery: string) => {
+      setBlogPosts((prevState) => ({
+        ...prevState,
+        posts: stableBlogData.posts.filter(({ title }) =>
+          title.toLowerCase().includes(searchQuery.toLowerCase())
+        ),
+        categories: prevState.categories,
+      }));
+    };
+
+    // Use a timeout to debounce the function by 500ms.
+    let timeoutId = undefined;
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => filterPosts(e.target.value), 500);
   };
 
   return (
@@ -60,10 +87,13 @@ export default function Blog() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      {/* The main content of the page is contained within the Box and Header components */}
       <main>
         <Box className="max-w-screen-xl w-11/12 my-0 mx-auto">
+          {/* The Header component contains the header of the page with Avatar and Hamburger Menu */}
           <Header />
 
+          {/* The MUI Box component is contained with Headers, TextField, ChipFilters and BlogPosts */}
           <Box>
             <Typography
               variant="h3"
@@ -75,25 +105,35 @@ export default function Blog() {
               Emersoft README.md
             </Typography>
 
+            {/* The TextField component allows searching for blog posts by keyword */}
             <TextField
               type="search"
-              // placeholder="Search in Readme..."
               placeholder="Search blog posts..."
               onChange={filteredPostsBySearchInput}
               className="w-full my-4"
             />
 
+            {/* The ChipFilters component displays clickable chips for filtering by category */}
             <ChipFilters
               stableBlogData={stableBlogData}
               activeCategory={activeCategory}
               filteredPostsByCategoryId={filteredPostsByCategoryId}
             />
 
-            {/* Display blog card item or No results found*/}
-            <BlogPosts blogPosts={blogPosts} stableBlogData={stableBlogData} />
+            {/* The BlogPosts component displays the list of blog posts, or a "no results found" message if no posts match the current filter */}
+            {/* <BlogPosts blogPosts={blogPosts} stableBlogData={stableBlogData} /> */}
+            {blogPosts.posts.length > 0 ? (
+              <BlogPosts
+                blogPosts={blogPosts}
+                stableBlogData={stableBlogData}
+              />
+            ) : (
+              <NoResultsFound />
+            )}
           </Box>
         </Box>
 
+        {/* The Footer component contains the footer of the page */}
         <Footer />
       </main>
     </>
