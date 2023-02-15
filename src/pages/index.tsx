@@ -2,29 +2,21 @@ import Head from "next/head";
 // import { Inter } from "@next/font/google";
 import blogData from "@/data/blogData";
 import React, { useState } from "react";
-import {
-  Box,
-  Typography,
-  TextField,
-  Stack,
-  Pagination,
-  Grid,
-  Card,
-  CardMedia,
-  CardContent,
-  Chip,
-} from "@mui/material";
+import { Box, Typography, TextField, Chip } from "@mui/material";
 import BlogData from "../types/types";
 import useActiveCategory from "@/hooks/useActiveCategory";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
+import BlogPosts from "@/components/BlogPosts/BlogPosts";
+import ChipFilters from "@/components/ChipFilters/ChipFilters";
 
 // const inter = Inter({ subsets: ["latin"] });
 
 export default function Blog() {
-  const [stableBlogData, setStableBlogData] = useState<BlogData>(blogData);
+  // const [stableBlogData, setStableBlogData] = useState<BlogData>(blogData);
   const [blogPosts, setBlogPosts] = useState<BlogData>(blogData);
   const { activeCategory, handleCategoryButton } = useActiveCategory();
+  const stableBlogData: BlogData = blogData;
 
   const filteredPostsByCategoryId = (id: number, name: string) => {
     console.log("Chosen ID", id);
@@ -83,110 +75,22 @@ export default function Blog() {
               Emersoft README.md
             </Typography>
 
-            <Box>
-              <TextField
-                type="search"
-                // placeholder="Search in Readme..."
-                placeholder="Search blog posts..."
-                onChange={filteredPostsBySearchInput}
-                className="w-full my-4"
-              />
-            </Box>
+            <TextField
+              type="search"
+              // placeholder="Search in Readme..."
+              placeholder="Search blog posts..."
+              onChange={filteredPostsBySearchInput}
+              className="w-full my-4"
+            />
 
-            <Box className="flex overflow-y-auto">
-              {stableBlogData.categories.map(({ id, name, slug }) => (
-                <Chip
-                  key={slug}
-                  label={name}
-                  variant="filled"
-                  className={`${
-                    slug === activeCategory && "text-white bg-black"
-                  } mb-3 mr-2 px-1 font-bold hover:bg-black hover:text-white`}
-                  onClick={() => filteredPostsByCategoryId(id, slug)}
-                />
-              ))}
-            </Box>
+            <ChipFilters
+              stableBlogData={stableBlogData}
+              activeCategory={activeCategory}
+              filteredPostsByCategoryId={filteredPostsByCategoryId}
+            />
 
-            <Box>
-              <Typography variant="h2" className="text-3xl font-medium mb-3">
-                Featured Posts
-              </Typography>
-
-              <Grid container spacing={5}>
-                {blogPosts.posts.map(
-                  ({ id, title, excerpt, imageUrl, categories }) => (
-                    <Grid item xs={12} sm={6} lg={4} key={`Post-${id}`}>
-                      {/* Card component to display blog post */}
-                      <Card className="min-h-[525px] h-full rounded-3xl cursor-pointer">
-                        {/* Display the post's featured image */}
-                        <CardMedia
-                          className="w-full h-1/2 rounded-t-3xl"
-                          image={imageUrl}
-                          title={title}
-                        />
-
-                        <CardContent>
-                          {/* Display the post's categories */}
-                          <Typography className="my-3 font-bold">
-                            {categories.map((categoryId) => {
-                              const filteredCategory =
-                                stableBlogData.categories.find(
-                                  (category) => category.id === categoryId
-                                );
-
-                              {
-                                /* Only display the category if it exists and is not "All" */
-                              }
-                              if (
-                                !filteredCategory ||
-                                filteredCategory.name === "All"
-                              ) {
-                                return null;
-                              }
-
-                              return (
-                                <span
-                                  key={filteredCategory.id}
-                                  className="mr-2"
-                                >
-                                  {filteredCategory.name}
-                                </span>
-                              );
-                            })}
-                          </Typography>
-
-                          {/* Display the post's title */}
-                          <Typography
-                            variant="h5"
-                            component="h2"
-                            className="mb-3"
-                          >
-                            {title}
-                          </Typography>
-
-                          {/* Display the post's excerpt */}
-                          <Typography variant="body2" component="p">
-                            {excerpt}
-                          </Typography>
-                        </CardContent>
-                      </Card>
-                    </Grid>
-                  )
-                )}
-              </Grid>
-
-              {/* Pagination */}
-              <Stack spacing={2}>
-                <Pagination
-                  count={Math.ceil(blogPosts.posts.length / 6)}
-                  siblingCount={1}
-                  boundaryCount={1}
-                  variant="outlined"
-                  shape="rounded"
-                  className="flex justify-center my-4"
-                />
-              </Stack>
-            </Box>
+            {/* Display blog card item or No results found*/}
+            <BlogPosts blogPosts={blogPosts} stableBlogData={stableBlogData} />
           </Box>
         </Box>
 
