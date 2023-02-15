@@ -1,13 +1,10 @@
 import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
 // import { Inter } from "@next/font/google";
 import blogData from "@/data/blogData";
 import React, { useState } from "react";
 import {
   Box,
   Typography,
-  List,
   TextField,
   Stack,
   Pagination,
@@ -16,44 +13,13 @@ import {
   CardMedia,
   CardContent,
   Chip,
-  ListItem,
 } from "@mui/material";
-import { GitHub, LinkedIn } from "@mui/icons-material";
 import BlogData from "../types/types";
 import useActiveCategory from "@/hooks/useActiveCategory";
+import Header from "@/components/Header/Header";
+import Footer from "@/components/Footer/Footer";
 
 // const inter = Inter({ subsets: ["latin"] });
-
-const LINKS = [
-  {
-    href: "https://emersoft.co/",
-    name: "Home",
-  },
-  {
-    href: "https://emersoft.co/about/",
-    name: "Get to know us",
-  },
-  {
-    href: "https://emersoft.co/our-work/",
-    name: "Our work",
-  },
-  {
-    href: "https://emersoft.co/services/hire-developers/",
-    name: "Hire Developers",
-  },
-  {
-    href: "https://emersoft.co/services/",
-    name: "Services",
-  },
-  {
-    href: "https://careers.emersoft.co/",
-    name: "Careers",
-  },
-  // {
-  //   href: "http://localhost:3000/",
-  //   name: "Blog",
-  // },
-];
 
 export default function Blog() {
   const [stableBlogData, setStableBlogData] = useState<BlogData>(blogData);
@@ -104,44 +70,7 @@ export default function Blog() {
 
       <main>
         <Box className="max-w-screen-xl w-11/12 my-0 mx-auto">
-          <header className="flex justify-between items-center py-12">
-            <Box className="flex items-center">
-              <Image
-                src={"/apple-touch-icon.png"}
-                width={150}
-                height={150}
-                alt="Avatar"
-                className="w-12 h-12 mr-4 rounded-full"
-                priority
-              />
-              <span className="font-bold">Patryk Kwasek</span>
-            </Box>
-
-            <nav className="flex row">
-              <ul className="flex row">
-                {LINKS.map(({ href, name }) => (
-                  <li key={name}>
-                    <Link
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-3 hover:text-emersoft-green focus:outline-none focus:shadow-outline"
-                    >
-                      {name}
-                    </Link>
-                  </li>
-                ))}
-                <li>
-                  <Link
-                    href="http://localhost:3000/"
-                    className="text-white bg-emersoft-green font-bold py-4 px-3 hover:bg-emersoft-black duration-500 focus:outline-none focus:shadow-outline"
-                  >
-                    Blog
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-          </header>
+          <Header />
 
           <Box>
             <Typography
@@ -187,7 +116,9 @@ export default function Blog() {
                 {blogPosts.posts.map(
                   ({ id, title, excerpt, imageUrl, categories }) => (
                     <Grid item xs={12} sm={6} lg={4} key={`Post-${id}`}>
+                      {/* Card component to display blog post */}
                       <Card className="min-h-[525px] h-full rounded-3xl cursor-pointer">
+                        {/* Display the post's featured image */}
                         <CardMedia
                           className="w-full h-1/2 rounded-t-3xl"
                           image={imageUrl}
@@ -195,6 +126,7 @@ export default function Blog() {
                         />
 
                         <CardContent>
+                          {/* Display the post's categories */}
                           <Typography className="my-3 font-bold">
                             {categories.map((categoryId) => {
                               const filteredCategory =
@@ -202,6 +134,9 @@ export default function Blog() {
                                   (category) => category.id === categoryId
                                 );
 
+                              {
+                                /* Only display the category if it exists and is not "All" */
+                              }
                               if (
                                 !filteredCategory ||
                                 filteredCategory.name === "All"
@@ -220,6 +155,7 @@ export default function Blog() {
                             })}
                           </Typography>
 
+                          {/* Display the post's title */}
                           <Typography
                             variant="h5"
                             component="h2"
@@ -228,6 +164,7 @@ export default function Blog() {
                             {title}
                           </Typography>
 
+                          {/* Display the post's excerpt */}
                           <Typography variant="body2" component="p">
                             {excerpt}
                           </Typography>
@@ -253,39 +190,7 @@ export default function Blog() {
           </Box>
         </Box>
 
-        <footer className="border-t border-gray-300 py-8">
-          <Box className="flex justify-end max-w-screen-xl w-11/12 my-0 mx-auto">
-            <Typography>
-              <Link
-                href="https://pl.linkedin.com/in/patryk-kwasek-0b9a821b3"
-                className="underline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <LinkedIn
-                  className="text-[#0077B5]"
-                  fontSize="medium"
-                  titleAccess="LinkedIn profile"
-                />
-              </Link>
-            </Typography>
-
-            <Typography>
-              <Link
-                href="https://github.com/Web-Hulk"
-                className="underline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <GitHub
-                  className="text-black"
-                  fontSize="medium"
-                  titleAccess="Github profile"
-                />
-              </Link>
-            </Typography>
-          </Box>
-        </footer>
+        <Footer />
       </main>
     </>
   );

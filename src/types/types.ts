@@ -17,3 +17,8 @@ export default interface BlogData {
   posts: BlogPost[];
   categories: BlogCategory[];
 }
+
+export type LinkItem = {
+  href: string,
+  name: string,
+};
