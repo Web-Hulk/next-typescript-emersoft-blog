@@ -15,15 +15,16 @@ const Avatar = ({ name, imageUrl, handleAvatar }: AvatarProps) => {
       {/* Render an `Image` component with the source, dimensions, alt text, and styling */}
       <Image
         src={imageUrl}
-        width={150}
-        height={150}
         alt="Avatar"
         aria-label="Patryk Kwasek's Avatar"
+        width={150}
+        height={150}
         className="w-12 h-12 mr-4 rounded-full cursor-pointer"
         priority
         onClick={handleAvatar}
         title="Afraid to click the avatar? Don't be a chicken, uncover the mystery inside!"
       />
+
       {/* Render a `span` element containing the name */}
       <span className="font-bold">{name}</span>
     </Box>
