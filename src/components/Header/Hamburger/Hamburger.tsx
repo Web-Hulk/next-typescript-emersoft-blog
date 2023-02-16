@@ -35,7 +35,7 @@ const HamburgerMenu = ({ links }: { links: LinkItem[] }) => {
         ))}
         <Link
           href="http://localhost:3000/"
-          className="block mt-4 lg:inline-block lg:mt-0 md:ml-6 text-gray-900 font-medium hover:text-emersoft-green"
+          className="block mt-4 lg:inline-block lg:mt-0 md:ml-6 font-medium text-emersoft-green"
         >
           Blog
         </Link>

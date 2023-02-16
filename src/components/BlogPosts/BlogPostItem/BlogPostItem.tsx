@@ -19,7 +19,8 @@ const BlogPostItem = ({
   return (
     <Grid item xs={12} sm={6} lg={4}>
       {/* Card component to display blog post */}
-      <Card className="min-h-[525px] h-full rounded-3xl cursor-pointer shadow-lg shadow-slate-200 hover:-translate-y-4">
+      {/* background-color: #9b9b9b; - BACKGROUND COLOR FOR DARK */}
+      <Card className="min-h-[525px] h-full rounded-3xl cursor-pointer shadow-lg shadow-slate-200  hover:-translate-y-4">
         {/* Display the post's featured image */}
         <CardMedia
           className="w-full h-1/2 rounded-t-3xl"

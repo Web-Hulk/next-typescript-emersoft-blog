@@ -4,10 +4,11 @@ import { Box, TextField, Typography } from "@mui/material";
 import blogData from "@/data/blogData";
 import useActiveCategory from "@/hooks/useActiveCategory";
 import Header from "@/components/Header/Header";
-import Footer from "@/components/Footer/Footer";
 import BlogPosts from "@/components/BlogPosts/BlogPosts";
 import ChipFilters from "@/components/ChipFilters/ChipFilters";
 import NoResultsFound from "@/components/Errors/NoResultsFound";
+import ThemeOptions from "@/components/ThemeOptions/ThemeOptions";
+import SocialMediaLinks from "@/components/SocialMediaLinks/SocialMediaLinks";
 import BlogData from "../types/types";
 
 /**
@@ -86,6 +87,13 @@ export default function Blog() {
     setInputValue("");
   }, [activeCategory]);
 
+  const [isAdditionalFeaturesVisible, setIsAdditionalFeaturesVisible] =
+    useState<boolean>(false);
+
+  const handleAvatar = () => {
+    setIsAdditionalFeaturesVisible(!isAdditionalFeaturesVisible);
+  };
+
   return (
     <>
       <Head>
@@ -98,12 +106,37 @@ export default function Blog() {
       {/* The main content of the page is contained within the Box and Header components */}
       <main className="h-screen">
         <Box
+          className={`max-h-0 overflow-hidden transition-all duration-1000 ${
+            isAdditionalFeaturesVisible && "max-h-44 border-b border-gray-300"
+          }`}
+        >
+          <Box
+            className={`flex justify-center transition-all duration-500 ${
+              isAdditionalFeaturesVisible
+                ? "delay-200 ease-in-out max-h-44"
+                : "max-h-0"
+            }`}
+          >
+            <Typography
+              className={`m-2.5 transition-all duration-500 ${
+                isAdditionalFeaturesVisible
+                  ? "delay-500 ease-in-out opacity-100"
+                  : "ease-in-out opacity-0"
+              }`}
+            >
+              <SocialMediaLinks />
+              {/* <ThemeOptions themeName="dark" /> */}
+            </Typography>
+          </Box>
+        </Box>
+
+        <Box
           className={`max-w-screen-xl w-11/12 my-0 mx-auto ${
             blogPosts.posts.length === 0 && "h-screen mb-[-90px]"
           }`}
         >
           {/* The Header component contains the header of the page with Avatar and Hamburger Menu */}
-          <Header />
+          <Header handleAvatar={handleAvatar} />
 
           {/* The MUI Box component is contained with Headers, TextField, ChipFilters and BlogPosts */}
           <Box>

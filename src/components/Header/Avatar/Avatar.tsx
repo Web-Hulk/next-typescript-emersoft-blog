@@ -4,10 +4,11 @@ import Image from "next/image";
 type AvatarProps = {
   name: string;
   imageUrl: string;
+  handleAvatar: () => void;
 };
 
 // Define a new functional component called `Avatar`
-const Avatar = ({ name, imageUrl }: AvatarProps) => {
+const Avatar = ({ name, imageUrl, handleAvatar }: AvatarProps) => {
   // Return JSX containing a `Box` component and an `Image` component
   return (
     <Box className="flex items-center">
@@ -18,8 +19,10 @@ const Avatar = ({ name, imageUrl }: AvatarProps) => {
         height={150}
         alt="Avatar"
         aria-label="Patryk Kwasek's Avatar"
-        className="w-12 h-12 mr-4 rounded-full"
+        className="w-12 h-12 mr-4 rounded-full cursor-pointer"
         priority
+        onClick={handleAvatar}
+        title="Afraid to click the avatar? Don't be a chicken, uncover the mystery inside!"
       />
       {/* Render a `span` element containing the name */}
       <span className="font-bold">{name}</span>
