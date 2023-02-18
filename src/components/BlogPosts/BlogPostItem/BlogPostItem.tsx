@@ -1,5 +1,12 @@
-import BlogData from "@/types/types";
-import { Card, CardContent, CardMedia, Grid, Typography } from "@mui/material";
+import { BlogData } from "@/types/types";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Grid,
+  Skeleton,
+  Typography,
+} from "@mui/material";
 
 type BlogPostItemProps = {
   title: string;
@@ -22,11 +29,15 @@ const BlogPostItem = ({
       {/* background-color: #9b9b9b; - BACKGROUND COLOR FOR DARK */}
       <Card className="min-h-[525px] h-full rounded-3xl cursor-pointer shadow-lg shadow-slate-200  hover:-translate-y-4">
         {/* Display the post's featured image */}
-        <CardMedia
-          className="w-full h-1/2 rounded-t-3xl"
-          image={imageUrl}
-          title={title}
-        />
+        {imageUrl ? (
+          <CardMedia
+            className="w-full h-1/2 rounded-t-3xl"
+            image={imageUrl}
+            title={title}
+          />
+        ) : (
+          <Skeleton variant="rectangular" width="100%" height="200px" />
+        )}
 
         <CardContent>
           {/* Display the post's categories */}

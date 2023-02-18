@@ -1,4 +1,4 @@
-interface BlogPost {
+export interface BlogPost {
   id: number;
   slug: string;
   title: string;
@@ -13,7 +13,7 @@ interface BlogCategory {
   slug: string;
 }
 
-export default interface BlogData {
+export interface BlogData {
   posts: BlogPost[];
   categories: BlogCategory[];
 }

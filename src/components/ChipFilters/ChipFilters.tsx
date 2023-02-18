@@ -1,4 +1,4 @@
-import BlogData from "@/types/types";
+import { BlogData } from "@/types/types";
 import { Box } from "@mui/material";
 import ChipFilter from "./ChipFilter/ChipFilter";
 

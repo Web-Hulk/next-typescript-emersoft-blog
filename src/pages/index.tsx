@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
-import { Box, TextField, Typography } from "@mui/material";
+import { Box, CircularProgress, TextField, Typography } from "@mui/material";
+import axios from "axios";
 
 // Import components
 import useActiveCategory from "@/hooks/useActiveCategory";
@@ -11,20 +12,23 @@ import NoResultsFound from "@/components/Errors/NoResultsFound";
 import ThemeOptions from "@/components/ThemeOptions/ThemeOptions";
 import SocialMediaLinks from "@/components/SocialMediaLinks/SocialMediaLinks";
 
-// Import types and data
-import blogData from "@/data/blogData";
-import BlogData from "../types/types";
+// Import types
+import { BlogData } from "../types/types";
 
 /**
  * The main blog page component that displays the blog title, search input field,
  * category filter chips, and blog post cards.
  */
 export default function Blog() {
-  // Set the initial state for blog posts to the blogData imported from the data folder.
-  const [blogPosts, setBlogPosts] = useState<BlogData>(blogData);
+  // Set the initial state for blog posts fetched from the server
+  const [blogPosts, setBlogPosts] = useState<BlogData>({
+    posts: [],
+    categories: [],
+  });
 
   // Get the active category and category filter function from the useActiveCategory hook.
-  const { activeCategory, handleCategoryButton } = useActiveCategory();
+  const { activeCategory, categoryId, handleCategoryButton } =
+    useActiveCategory();
 
   // Set the initial state for the input value to an empty string.
   const [inputValue, setInputValue] = useState<string>("");
@@ -36,62 +40,99 @@ export default function Blog() {
   // Set the initial state for theme value to "light"
   const [themeValue, setThemeValue] = useState<string>("light");
 
-  // Set the stableBlogData variable to the initial blogData value imported above.
-  const stableBlogData: BlogData = blogData;
+  // Set the initial state for loading status
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  // Set the initial state for blog posts fetched from the server and never updated
+  const [stableBlogData, setStableBlogData] = useState<BlogData>({
+    posts: [],
+    categories: [],
+  });
+
+  // Fetch blog posts from the server using the '/api/getPosts' API
+  const fetchPosts = () => {
+    setIsLoading(true);
+    axios.get("/api/getPosts").then((response) => {
+      console.log("Fetch posts: ", response.data);
+
+      setBlogPosts(response.data);
+      setStableBlogData(response.data);
+      setIsLoading(false);
+    });
+  };
+
+  // Call the fetchPosts function when the component is mounted
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  // Set the initial state for pagination page number
+  const [page, setPage] = useState<number>(1);
+
+  // Handle the change of the page number in the pagination component
+  const handlePagination = (e: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+  };
 
   /**
    * A function that filters the blog posts by the selected category.
    * @param id The id of the selected category.
    * @param name The name of the selected category.
    */
-  const filteredPostsByCategoryId = (id: number, name: string) => {
-    // Debugging console logs
-    console.log("Chosen ID", id);
-    console.log("Filtered table", {
-      posts: stableBlogData.posts.filter((post) =>
-        post.categories.includes(id)
-      ),
-    });
+  const fetchPostsByCategory = (id: number, name: string) => {
+    axios
+      .get(`/api/getPostsByCategory?id=${id}`)
+      .then((response) => {
+        console.log("Fetch posts by category: ", response.data);
 
-    // Set the blog post state to only show posts that include the selected category.
-    setBlogPosts((prevState) => ({
-      ...prevState,
-      posts: stableBlogData.posts.filter((post) =>
-        post.categories.includes(id)
-      ),
-      categories: prevState.categories,
-    }));
+        setBlogPosts((prevState) => ({
+          ...prevState,
+          posts: response.data,
+          categories: prevState.categories,
+        }));
 
-    // Update the active category with the selected category name.
-    handleCategoryButton(name);
+        handleCategoryButton(name, id);
+        setPage(1);
+      })
+      .catch((error) => console.error(error));
   };
 
   /**
-   * A function that filters the blog posts by the input in the search field.
-   * @param e The input event with the new search query.
+   * A function that fetches blog posts by search query and filters the results by the selected category.
+   * @param query The search query to filter the posts.
    */
-  const filteredPostsBySearchInput = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    // Debugging console log
-    console.log(e.target.value);
-    setInputValue(e.target.value);
+  const fetchPostsBySearchQuery = (query: string) => {
+    axios
+      .get(`/api/getPostsBySearchQuery?id=${categoryId}&query=${query}`)
+      .then((response) => {
+        console.log("Fetch posts by search query: ", response.data);
 
-    // Define a function that filters the blog posts by the input in the search field.
-    const filterPosts = (searchQuery: string) => {
-      setBlogPosts((prevState) => ({
-        ...prevState,
-        posts: stableBlogData.posts.filter(({ title }) =>
-          title.toLowerCase().includes(searchQuery.toLowerCase())
-        ),
-        categories: prevState.categories,
-      }));
-    };
+        const filterPosts = () => {
+          setBlogPosts((prevState) => ({
+            ...prevState,
+            posts: response.data,
+            categories: prevState.categories,
+          }));
+        };
 
-    // Use a timeout to debounce the function by 500ms.
-    let timeoutId = undefined;
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => filterPosts(e.target.value), 500);
+        // Use a timeout to debounce the function by 500ms.
+        if (timeoutId) {
+          clearTimeout(timeoutId);
+        }
+
+        timeoutId = setTimeout(() => filterPosts(), 500);
+      })
+      .catch((error) => console.error(error));
+  };
+
+  // The timeout ID to debounce the search input field
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
+  // Handle the input change in the search input field
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const query = event.target.value;
+    setInputValue(query);
+    fetchPostsBySearchQuery(query);
   };
 
   // Reset input value to empty string when active category changes
@@ -129,84 +170,101 @@ export default function Blog() {
 
       {/* The main content of the page is contained within the Box and Header components */}
       <main className="h-screen">
-        {/* The Box component contains additional features (social media links and theme options) */}
-        <Box
-          className={`max-h-0 overflow-hidden transition-all duration-1000 ${
-            isAdditionalFeaturesVisible && "max-h-44 border-b border-gray-300"
-          }`}
-        >
-          <Box
-            className={`flex justify-center transition-all duration-500 ${
-              isAdditionalFeaturesVisible
-                ? "delay-200 ease-in-out max-h-44"
-                : "max-h-0"
-            }`}
-          >
-            <Typography
-              className={`m-2.5 transition-all duration-500 ${
-                isAdditionalFeaturesVisible
-                  ? "delay-500 ease-in-out opacity-100"
-                  : "ease-in-out opacity-0"
+        {/* If data is still being fetched, show a loading spinner */}
+        {isLoading ? (
+          <Box className="flex justify-center items-center h-screen">
+            <CircularProgress className="text-emersoft-green" />
+          </Box>
+        ) : (
+          <>
+            {/* Show the additional features box if the state indicates it should be visible */}
+            <Box
+              className={`max-h-0 overflow-hidden transition-all duration-1000 ${
+                isAdditionalFeaturesVisible &&
+                "max-h-44 border-b border-gray-300"
               }`}
             >
-              {/* The SocialMediaLinks component displays links to social media profiles */}
-              <SocialMediaLinks />
-              {/* The ThemeOptions component allows users to switch between light and dark themes */}
-              <ThemeOptions
-                themeName={themeValue}
-                handleThemeName={handleThemeValue}
-              />
-            </Typography>
-          </Box>
-        </Box>
+              <Box
+                className={`flex justify-center transition-all duration-500 ${
+                  isAdditionalFeaturesVisible
+                    ? "delay-200 ease-in-out max-h-44"
+                    : "max-h-0"
+                }`}
+              >
+                <Typography
+                  className={`m-2.5 transition-all duration-500 ${
+                    isAdditionalFeaturesVisible
+                      ? "delay-500 ease-in-out opacity-100"
+                      : "ease-in-out opacity-0"
+                  }`}
+                >
+                  {/* The SocialMediaLinks component displays links to social media profiles */}
+                  <SocialMediaLinks />
+                  {/* The ThemeOptions component allows users to switch between light and dark themes */}
+                  <ThemeOptions
+                    themeName={themeValue}
+                    handleThemeName={handleThemeValue}
+                  />
+                </Typography>
+              </Box>
+            </Box>
 
-        {/* The Box component contains the header, search input, filter chips, and blog posts */}
-        <Box
-          className={`max-w-screen-xl w-11/12 my-0 mx-auto ${
-            blogPosts.posts.length === 0 && "h-screen mb-[-90px]"
-          }`}
-        >
-          {/* The Header component contains the header of the page with Avatar and Hamburger Menu */}
-          <Header handleAvatar={handleAvatar} />
-
-          <Box>
-            <Typography
-              variant="h3"
-              className="text-emersoft-green text-3xl font-bold mb-4 uppercase"
+            {/* The Box component contains the header, search input, filter chips, and blog posts */}
+            <Box
+              className={`max-w-screen-xl w-11/12 my-0 mx-auto ${
+                blogPosts.posts.length === 0 && "h-screen mb-[-90px]"
+              }`}
             >
-              Hello, my name is Patryk
-            </Typography>
-            <Typography variant="h1" className="text-4xl lg:text-7xl font-bold">
-              Emersoft README.md
-            </Typography>
+              {/* The Header component contains the header of the page with Avatar and Hamburger Menu */}
+              <Header handleAvatar={handleAvatar} />
 
-            {/* The TextField component allows searching for blog posts by keyword */}
-            <TextField
-              type="search"
-              placeholder="Search blog posts..."
-              onChange={filteredPostsBySearchInput}
-              value={inputValue}
-              className="w-full my-4"
-            />
+              <Box>
+                <Typography
+                  variant="h3"
+                  className="text-emersoft-green text-3xl font-bold mb-4 uppercase"
+                >
+                  Hello, my name is Patryk
+                </Typography>
+                <Typography
+                  variant="h1"
+                  className="text-4xl lg:text-7xl font-bold"
+                >
+                  Emersoft README.md
+                </Typography>
 
-            {/* The ChipFilters component displays clickable chips for filtering by category */}
-            <ChipFilters
-              stableBlogData={stableBlogData}
-              activeCategory={activeCategory}
-              filteredPostsByCategoryId={filteredPostsByCategoryId}
-            />
+                {/* The TextField component allows searching for blog posts by keyword */}
+                <TextField
+                  type="search"
+                  placeholder="Search blog posts..."
+                  // onChange={filteredPostsBySearchInput}
+                  onChange={handleInputChange}
+                  value={inputValue}
+                  className="w-full my-4"
+                />
 
-            {/* The BlogPosts component displays the list of blog posts, or a "no results found" message if no posts match the current filter */}
-            {blogPosts.posts.length > 0 ? (
-              <BlogPosts
-                blogPosts={blogPosts}
-                stableBlogData={stableBlogData}
-              />
-            ) : (
-              <NoResultsFound />
-            )}
-          </Box>
-        </Box>
+                {/* The ChipFilters component displays clickable chips for filtering by category */}
+                <ChipFilters
+                  stableBlogData={stableBlogData}
+                  activeCategory={activeCategory}
+                  filteredPostsByCategoryId={fetchPostsByCategory}
+                />
+
+                {/* The BlogPosts component displays the list of blog posts, or a "no results found" message if no posts match the current filter */}
+                {blogPosts.posts.length > 0 ? (
+                  <BlogPosts
+                    blogPosts={blogPosts}
+                    stableBlogData={stableBlogData}
+                    pageNumber={page}
+                    postsPerPage={6}
+                    handlePagination={handlePagination}
+                  />
+                ) : (
+                  <NoResultsFound />
+                )}
+              </Box>
+            </Box>
+          </>
+        )}
       </main>
     </>
   );

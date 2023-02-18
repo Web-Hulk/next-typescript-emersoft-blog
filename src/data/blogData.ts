@@ -1,4 +1,6 @@
-const blogData = {
+import { BlogData } from "@/types/types";
+
+const blogData: BlogData = {
   "posts": [
     {
       "id": 126,
