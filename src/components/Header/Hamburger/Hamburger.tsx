@@ -42,7 +42,7 @@ const HamburgerMenu = ({ links }: { links: LinkItem[] }) => {
       <nav
         className={`lg:flex lg:items-center ${
           isOpen
-            ? "flex flex-col justify-center bg-[#373a47] h-full px-8 absolute top-0 left-0 z-10 translate-x-0 w-full"
+            ? "flex flex-col justify-center bg-emersoft-black h-full px-8 absolute top-0 left-0 z-10 translate-x-0 w-full"
             : "hidden"
         }`}
       >

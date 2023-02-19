@@ -15,7 +15,7 @@ const SOCIAL_MEDIA_LINKS: SocialMediaLink[] = [
     href: "https://pl.linkedin.com/in/patryk-kwasek-0b9a821b3",
     icon: (
       <LinkedIn
-        className="text-[#0077B5]"
+        className="text-linkedin"
         fontSize="large"
         titleAccess="LinkedIn profile"
       />

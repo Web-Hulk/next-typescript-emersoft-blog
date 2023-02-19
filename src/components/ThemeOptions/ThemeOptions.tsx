@@ -2,20 +2,21 @@ import { DarkMode, LightMode } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 
 type ThemeOptionsProps = {
-  themeName: string; // Theme name must be either 'light' or 'dark'
+  themeName: string;
   handleThemeName: () => void;
 };
 
-// Define the available themes with their corresponding icons
+// define the two possible themes with their respective icons
 const THEMES = {
   light: <LightMode fontSize="large" className="text-yellow-400" />,
   dark: <DarkMode fontSize="large" />,
 };
 
 const ThemeOptions = ({ themeName, handleThemeName }: ThemeOptionsProps) => {
-  // A function to set the theme based on the themeName prop
+  // helper function to return the icon for the current theme
   const setTheme = () => THEMES[themeName as keyof typeof THEMES];
 
+  // render a button that changes the theme when clicked
   return <IconButton onClick={handleThemeName}>{setTheme()}</IconButton>;
 };
 

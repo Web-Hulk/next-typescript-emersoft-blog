@@ -9,7 +9,6 @@ import Header from "@/components/Header/Header";
 import BlogPosts from "@/components/BlogPosts/BlogPosts";
 import ChipFilters from "@/components/ChipFilters/ChipFilters";
 import NoResultsFound from "@/components/Errors/NoResultsFound";
-import ThemeOptions from "@/components/ThemeOptions/ThemeOptions";
 import SocialMediaLinks from "@/components/SocialMediaLinks/SocialMediaLinks";
 
 // Import types
@@ -33,12 +32,9 @@ export default function Blog() {
   // Set the initial state for the input value to an empty string.
   const [inputValue, setInputValue] = useState<string>("");
 
-  // Set the initial state for showing or hiding additional features (such as theme setter)
+  // Set the initial state for showing or hiding additional features
   const [isAdditionalFeaturesVisible, setIsAdditionalFeaturesVisible] =
     useState(false);
-
-  // Set the initial state for theme value to "light"
-  const [themeValue, setThemeValue] = useState<string>("light");
 
   // Set the initial state for loading status
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -145,19 +141,6 @@ export default function Blog() {
     setIsAdditionalFeaturesVisible(!isAdditionalFeaturesVisible);
   };
 
-  // Function to handle theme toggle and save the value to local storage
-  const handleThemeValue = () => {
-    const newThemeValue = themeValue === "light" ? "dark" : "light";
-    setThemeValue(newThemeValue);
-    localStorage.setItem("theme", newThemeValue);
-  };
-
-  // Load theme value from local storage on component mount
-  useEffect(() => {
-    const storedThemeValue = localStorage.getItem("theme") || "light";
-    setThemeValue(storedThemeValue);
-  }, []);
-
   return (
     <>
       {/* The Head component sets metadata for the page */}
@@ -192,19 +175,20 @@ export default function Blog() {
                 }`}
               >
                 <Typography
-                  className={`m-2.5 transition-all duration-500 ${
+                  className={`m-2.5 transition-all duration-500 flex items-center ${
                     isAdditionalFeaturesVisible
                       ? "delay-500 ease-in-out opacity-100"
                       : "ease-in-out opacity-0"
                   }`}
                 >
+                  <strong>Socials:</strong>
                   {/* The SocialMediaLinks component displays links to social media profiles */}
                   <SocialMediaLinks />
                   {/* The ThemeOptions component allows users to switch between light and dark themes */}
-                  <ThemeOptions
+                  {/* <ThemeOptions
                     themeName={themeValue}
                     handleThemeName={handleThemeValue}
-                  />
+                  /> */}
                 </Typography>
               </Box>
             </Box>
