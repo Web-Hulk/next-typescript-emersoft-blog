@@ -152,7 +152,7 @@ export default function Blog() {
       </Head>
 
       {/* The main content of the page is contained within the Box and Header components */}
-      <main className="h-screen">
+      <main className="h-screen font-sans">
         {/* If data is still being fetched, show a loading spinner */}
         {isLoading ? (
           <Box className="flex justify-center items-center h-screen">
@@ -163,8 +163,7 @@ export default function Blog() {
             {/* Show the additional features box if the state indicates it should be visible */}
             <Box
               className={`max-h-0 overflow-hidden transition-all duration-1000 ${
-                isAdditionalFeaturesVisible &&
-                "max-h-44 border-b border-gray-300"
+                isAdditionalFeaturesVisible && "max-h-44 bg-icons-background"
               }`}
             >
               <Box

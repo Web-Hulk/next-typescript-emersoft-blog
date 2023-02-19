@@ -7,6 +7,7 @@ module.exports = {
       colors: {
         "emersoft-black": "#373a47",
         "emersoft-green": "#15f2b8",
+        "icons-background": "#fff4ed",
         linkedin: "#0077B5",
       },
     },

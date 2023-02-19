@@ -33,7 +33,7 @@ const HamburgerMenu = ({ links }: { links: LinkItem[] }) => {
     <div className="flex items-center justify-between lg:justify-end">
       <button
         type="button"
-        className="lg:hidden block focus:outline-none z-20"
+        className="lg:hidden block focus:outline-none z-20 bg-transparent border-none cursor-pointer"
         onClick={toggleMenu}
       >
         {isOpen ? <CloseIcon className="text-white" /> : <MenuIcon />}
@@ -52,7 +52,7 @@ const HamburgerMenu = ({ links }: { links: LinkItem[] }) => {
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className={`block mt-4 lg:inline-block lg:mt-0 lg:ml-6 font-medium ${
+            className={`block mt-4 lg:inline-block lg:mt-0 lg:ml-6 font-medium no-underline ${
               isOpen
                 ? "text-emersoft-green hover:text-white"
                 : "text-gray-900 hover:text-gray-600"
@@ -62,8 +62,8 @@ const HamburgerMenu = ({ links }: { links: LinkItem[] }) => {
           </Link>
         ))}
         <Link
-          href="http://localhost:3000/"
-          className={`block mt-4 lg:inline-block lg:mt-0 lg:ml-6 font-medium text-emersoft-green ${
+          href={`${window.location.href}`}
+          className={`block mt-4 lg:inline-block lg:mt-0 lg:ml-6 font-medium text-emersoft-green no-underline ${
             isOpen && "text-white"
           }`}
         >
