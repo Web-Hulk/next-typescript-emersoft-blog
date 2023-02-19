@@ -11,7 +11,7 @@ const Header = ({ handleAvatar }: HeaderProps) => {
     <header className="flex justify-between items-center py-12">
       <Avatar
         name="Patryk Kwasek"
-        imageUrl="/apple-touch-icon.png"
+        imageUrl="/avatar.png"
         handleAvatar={handleAvatar}
       />
       <HamburgerMenu links={LINKS} />

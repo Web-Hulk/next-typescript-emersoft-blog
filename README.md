@@ -1,38 +1,64 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# [Patryk Kwasek | Emersoft Blog](https://patryk-kwasek-emersoft-blog.vercel.app/)
+
+## Overview
+
+[Emersoft](https://emersoft.co/) Blog is a simple Blog page built with Next.js and TypeScript that uses server-side rendering (SSR) to improve performance and provide a better user experience.
+
+The blog includes several features to enhance the user experience, such as:
+
+- API endpoints to fetch, search, and filter blog posts.
+- Search functionality to look for posts by title in the selected category.
+- A filter by category option to make it easier to find specific types of posts.
+- Simple pagination with buttons to navigate to the next, previous and specific page.
+- Navigation with links to [Emersoft](https://emersoft.co/) official web pages.
+- Responsiveness.
+- Hidden Box which hold the links to all my socials.
+
+In addition, the blog page is designed to provide a simple, elegant display of all blog posts. Each post includes the category, an image, a title, and an excerpt.
 
 ## Getting Started
 
-First, run the development server:
+To get started with the project, clone the repository:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+    git clone https://github.com/Web-Hulk/next-typescript-emersoft-blog.git
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Install the required packages:
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+    npm install
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+To start the development server:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+    npm run dev
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+The site should be running at [http://localhost:3000](http://localhost:3000).
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+    ├── components/         # React components
+    ├── pages/              # Next.js pages
+    ├── public/             # Public assets
+    ├── styles/             # Global styles
+    ├── tailwind.config.js  # TailwindCSS configuration file
+    ├── tsconfig.json       # TypeScript configuration file
+    ├── README.md           # Project README
+    ├── next.config.js      # Next.js configuration file
+    ├── package.json        # Node.js package manager file
+    ├── postcss.config.js   # PostCSS configuration file
+    └── .gitignore          # Git ignore file
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Technologies Used
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- [Next.js](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [MUI](https://mui.com/)
+- [TailwindCSS](https://tailwindcss.com/)
 
-## Deploy on Vercel
+## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This application has been deployed on Vercel and is accessible at https://patryk-kwasek-emersoft-blog.vercel.app/.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Screenshots
+
+Screenshots of the application can be found in the public/screenshots/ directory.
+
+The screenshots include images for both desktop and mobile versions of the application.
