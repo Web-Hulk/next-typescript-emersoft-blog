@@ -62,7 +62,7 @@ const HamburgerMenu = ({ links }: { links: LinkItem[] }) => {
           </Link>
         ))}
         <Link
-          href={`${window.location.href}`}
+          href="/"
           className={`block mt-4 lg:inline-block lg:mt-0 lg:ml-6 font-medium text-emersoft-green no-underline ${
             isOpen && "text-white"
           }`}
