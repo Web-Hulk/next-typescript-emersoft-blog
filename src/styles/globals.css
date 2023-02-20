@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Resetting the default browser styles. */
 * {
   box-sizing: border-box;
   margin: 0;

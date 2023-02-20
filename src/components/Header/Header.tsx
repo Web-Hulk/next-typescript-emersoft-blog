@@ -1,6 +1,6 @@
 import Avatar from "./Avatar/Avatar";
 import HamburgerMenu from "./Hamburger/Hamburger";
-import { LINKS } from "@/data/links";
+import { NAV_LINKS } from "@/data/links";
 
 type HeaderProps = {
   handleAvatar: () => void;
@@ -14,7 +14,8 @@ const Header = ({ handleAvatar }: HeaderProps) => {
         imageUrl="/avatar.png"
         handleAvatar={handleAvatar}
       />
-      <HamburgerMenu links={LINKS} />
+
+      <HamburgerMenu links={NAV_LINKS} />
     </header>
   );
 };

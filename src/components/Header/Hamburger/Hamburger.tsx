@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import CloseIcon from "@mui/icons-material/Close";
-import MenuIcon from "@mui/icons-material/Menu";
-import { LinkItem } from "@/types/types";
+import { Close, Menu } from "@mui/icons-material";
 import { useMediaQuery } from "@mui/material";
+import { LinkItem } from "@/types/types";
 
 const HamburgerMenu = ({ links }: { links: LinkItem[] }) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  /* A MUI hook that returns a boolean value based on the media query. */
   const isLargeScreen = useMediaQuery("(min-width:1024px)");
 
   const toggleMenu = () => {
@@ -36,7 +37,7 @@ const HamburgerMenu = ({ links }: { links: LinkItem[] }) => {
         className="lg:hidden block focus:outline-none z-20 bg-transparent border-none cursor-pointer"
         onClick={toggleMenu}
       >
-        {isOpen ? <CloseIcon className="text-white" /> : <MenuIcon />}
+        {isOpen ? <Close className="text-white" /> : <Menu />}
       </button>
 
       <nav

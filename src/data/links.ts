@@ -1,6 +1,6 @@
 import { LinkItem } from "@/types/types";
 
-export const LINKS: LinkItem[] = [
+export const NAV_LINKS: LinkItem[] = [
   {
     href: "https://emersoft.co/",
     name: "Home",

@@ -1,11 +1,11 @@
 import { Box, Grid, Pagination, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
-import { BlogData } from "@/types/types";
 import BlogPostItem from "./BlogPostItem/BlogPostItem";
+import { BlogData } from "@/types/types";
 
 type BlogPostsProps = {
   blogPosts: BlogData;
-  stableBlogData: BlogData;
+  immutableBlogPosts: BlogData;
   pageNumber: number;
   postsPerPage: number;
   handlePagination: (e: React.ChangeEvent<unknown>, value: number) => void;
@@ -13,7 +13,7 @@ type BlogPostsProps = {
 
 const BlogPosts = ({
   blogPosts,
-  stableBlogData,
+  immutableBlogPosts,
   pageNumber,
   postsPerPage,
   handlePagination,
@@ -26,7 +26,6 @@ const BlogPosts = ({
 
   return (
     <Box>
-      {/* Heading */}
       <Typography variant="h2" className="text-3xl font-medium mb-3">
         Featured Posts
       </Typography>
@@ -40,12 +39,11 @@ const BlogPosts = ({
             excerpt={excerpt}
             imageUrl={imageUrl}
             categories={categories}
-            stableBlogData={stableBlogData}
+            immutableBlogPosts={immutableBlogPosts}
           />
         ))}
       </Grid>
 
-      {/* Pagination */}
       <Stack spacing={2}>
         <Pagination
           count={Math.ceil(blogPosts.posts.length / 6)}

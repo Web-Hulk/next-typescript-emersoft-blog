@@ -1,21 +1,21 @@
-import { BlogData } from "@/types/types";
 import { Box } from "@mui/material";
 import ChipFilter from "./ChipFilter/ChipFilter";
+import { BlogData } from "@/types/types";
 
 type ChipFiltersProps = {
-  stableBlogData: BlogData;
+  immutableBlogPosts: BlogData;
   activeCategory: string;
   filteredPostsByCategoryId: (id: number, slug: string) => void;
 };
 
 const ChipFilters = ({
-  stableBlogData,
+  immutableBlogPosts,
   activeCategory,
   filteredPostsByCategoryId,
 }: ChipFiltersProps) => {
   return (
     <Box className="flex overflow-y-auto">
-      {stableBlogData.categories.map(({ id, name, slug }) => (
+      {immutableBlogPosts.categories.map(({ id, name, slug }) => (
         <ChipFilter
           key={slug}
           slug={slug}

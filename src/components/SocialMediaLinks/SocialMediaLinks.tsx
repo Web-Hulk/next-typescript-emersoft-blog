@@ -1,14 +1,14 @@
 import Link from "next/link";
-import { GitHub, LinkedIn } from "@mui/icons-material";
 import { ReactNode } from "react";
+import { GitHub, LinkedIn } from "@mui/icons-material";
 import { Button } from "@mui/material";
 
-// Define a type for social media links
 type SocialMediaLink = {
   href: string;
   icon: ReactNode;
 };
 
+//* Leave it in the same file because the component is small
 // Define an array of social media links
 const SOCIAL_MEDIA_LINKS: SocialMediaLink[] = [
   {
@@ -35,7 +35,6 @@ const SOCIAL_MEDIA_LINKS: SocialMediaLink[] = [
 
 const SocialMediaLinks = () => {
   return (
-    // Map over the social media links and return a Button with a Link and an icon for each link
     <>
       {SOCIAL_MEDIA_LINKS.map(({ href, icon }) => (
         <Button key={href}>
