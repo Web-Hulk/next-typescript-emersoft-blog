@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 
 const useToggle = (initialState: boolean = false) => {
   const [state, setState] = useState<boolean>(initialState);
@@ -7,7 +7,7 @@ const useToggle = (initialState: boolean = false) => {
     setState(!state);
   };
 
-  return [state, toggleState];
+  return { state, toggleState };
 };
 
 export default useToggle;

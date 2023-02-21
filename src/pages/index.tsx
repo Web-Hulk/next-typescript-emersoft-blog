@@ -1,10 +1,11 @@
 import Head from "next/head";
 import dynamic from "next/dynamic";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import axios from "axios";
 import { Box, CircularProgress, TextField, Typography } from "@mui/material";
 import useActiveCategory from "@/hooks/useActiveCategory";
 import usePagination from "@/hooks/useHandlePagination";
+import useToggle from "@/hooks/useToggle";
 import { BlogData } from "../types/types";
 
 // Dynamic Components import
@@ -35,10 +36,10 @@ export default function Blog() {
     categories: [],
   });
   const [inputValue, setInputValue] = useState<string>("");
-  const [isSocialIconsVisible, setIsSocialIconsVisible] =
-    useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
+  const {
+    state: isSocialIconsVisible,
+    toggleState: toggleSocialIconsVisibility,
+  } = useToggle(false);
   const { activeCategory, categoryId, handleCategoryButton } =
     useActiveCategory();
   const { currentPage, handlePageChange, setCurrentPage } = usePagination();
@@ -49,12 +50,9 @@ export default function Blog() {
   }, []);
 
   const fetchPosts = () => {
-    setIsLoading(true);
-
     axios.get("/api/getPosts").then((response) => {
       setBlogPosts(response.data);
       setImmutableBlogPosts(response.data);
-      setIsLoading(false);
     });
   };
 
@@ -121,11 +119,6 @@ export default function Blog() {
     setInputValue("");
   }, [activeCategory]);
 
-  // Function to handle avatar click event and toggle additional features visibility
-  const handleAvatar = () => {
-    setIsSocialIconsVisible(!isSocialIconsVisible);
-  };
-
   return (
     <>
       <Head>
@@ -136,12 +129,9 @@ export default function Blog() {
       </Head>
 
       <main className="h-screen font-sans">
-        {/* If data is still being fetched, show a loading spinner */}
-        {isLoading ? (
-          <Box className="flex justify-center items-center h-screen">
-            <CircularProgress className="text-emersoft-green" />
-          </Box>
-        ) : (
+        <Suspense
+          fallback={<CircularProgress className="text-emersoft-green" />}
+        >
           <>
             {/* Show the additional features box if the state indicates it should be visible */}
             <Box
@@ -180,7 +170,7 @@ export default function Blog() {
                 blogPosts?.posts?.length === 0 && "h-screen mb-[-90px]"
               }`}
             >
-              <Header handleAvatar={handleAvatar} />
+              <Header handleAvatar={toggleSocialIconsVisibility} />
 
               <Box>
                 <Typography
@@ -211,20 +201,26 @@ export default function Blog() {
                 />
 
                 {blogPosts?.posts?.length > 0 ? (
-                  <BlogPosts
-                    blogPosts={blogPosts}
-                    immutableBlogPosts={immutableBlogPosts}
-                    pageNumber={currentPage}
-                    postsPerPage={6}
-                    handlePagination={handlePageChange}
-                  />
+                  <Suspense
+                    fallback={
+                      <CircularProgress className="text-emersoft-green" />
+                    }
+                  >
+                    <BlogPosts
+                      blogPosts={blogPosts}
+                      immutableBlogPosts={immutableBlogPosts}
+                      pageNumber={currentPage}
+                      postsPerPage={6}
+                      handlePagination={handlePageChange}
+                    />
+                  </Suspense>
                 ) : (
                   <NoResultsFound />
                 )}
               </Box>
             </Box>
           </>
-        )}
+        </Suspense>
       </main>
     </>
   );

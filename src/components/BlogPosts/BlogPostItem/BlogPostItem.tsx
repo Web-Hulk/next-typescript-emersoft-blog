@@ -1,4 +1,5 @@
 import Image from "next/legacy/image";
+import { Suspense } from "react";
 import {
   Box,
   Card,
@@ -27,7 +28,11 @@ const BlogPostItem = ({
   return (
     <Grid item xs={12} sm={6} lg={4}>
       <Card className="min-h-[525px] h-full rounded-3xl cursor-pointer shadow-lg shadow-slate-200  hover:-translate-y-1">
-        {imageUrl ? (
+        <Suspense
+          fallback={
+            <Skeleton variant="rectangular" width="100%" height="200px" />
+          }
+        >
           <Box className="w-full h-1/2 rounded-t-3xl relative">
             <Image
               src={imageUrl}
@@ -37,9 +42,7 @@ const BlogPostItem = ({
               priority
             />
           </Box>
-        ) : (
-          <Skeleton variant="rectangular" width="100%" height="200px" />
-        )}
+        </Suspense>
 
         <CardContent>
           <Typography className="my-2 text-blue-600 font-bold">
