@@ -1,3 +1,4 @@
+import Image from "next/legacy/image";
 import {
   Box,
   Card,
@@ -7,7 +8,6 @@ import {
   Typography,
 } from "@mui/material";
 import { BlogData } from "@/types/types";
-import Image from "next/image";
 
 type BlogPostItemProps = {
   title: string;
@@ -29,7 +29,13 @@ const BlogPostItem = ({
       <Card className="min-h-[525px] h-full rounded-3xl cursor-pointer shadow-lg shadow-slate-200  hover:-translate-y-1">
         {imageUrl ? (
           <Box className="w-full h-1/2 rounded-t-3xl relative">
-            <Image src={imageUrl} alt={title} layout="fill" objectFit="cover" />
+            <Image
+              src={imageUrl}
+              alt={title}
+              layout="fill"
+              objectFit="cover"
+              priority
+            />
           </Box>
         ) : (
           <Skeleton variant="rectangular" width="100%" height="200px" />

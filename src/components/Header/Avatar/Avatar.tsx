@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { Box } from "@mui/system";
 
 type AvatarProps = {
@@ -15,14 +15,14 @@ const Avatar = ({ name, imageUrl, handleAvatar }: AvatarProps) => {
         alt="Avatar"
         aria-label="Patryk Kwasek's Avatar"
         title="Afraid to click the avatar? Don't be a chicken, uncover the mystery inside!"
-        width={150}
-        height={150}
-        className="w-12 h-12 mr-4 rounded-full cursor-pointer"
+        width={48}
+        height={48}
+        className="rounded-full cursor-pointer"
         priority
         onClick={handleAvatar}
       />
 
-      <span className="font-bold">{name}</span>
+      <span className="font-bold ml-4">{name}</span>
     </Box>
   );
 };
