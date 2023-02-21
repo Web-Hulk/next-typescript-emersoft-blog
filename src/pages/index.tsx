@@ -168,7 +168,7 @@ export default function Blog() {
             {/* The Box component contains the header, search input, filter chips, and blog posts */}
             <Box
               className={`max-w-screen-xl w-11/12 my-0 mx-auto ${
-                blogPosts.posts.length === 0 && "h-screen mb-[-90px]"
+                blogPosts?.posts?.length === 0 && "h-screen mb-[-90px]"
               }`}
             >
               <Header handleAvatar={handleAvatar} />
@@ -201,7 +201,7 @@ export default function Blog() {
                   filteredPostsByCategoryId={fetchPostsByCategory}
                 />
 
-                {blogPosts.posts.length > 0 ? (
+                {blogPosts?.posts?.length > 0 ? (
                   <BlogPosts
                     blogPosts={blogPosts}
                     immutableBlogPosts={immutableBlogPosts}
