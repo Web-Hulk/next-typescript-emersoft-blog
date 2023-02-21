@@ -3,11 +3,10 @@ import axios from 'axios';
 import { BlogPost } from "../../types/types";
 
 const filterPostsByCategoryId = async (id: number) => {
+  console.log(process.env.NEXT_PUBLIC_API_BASE_URL);
+
   try {
-    const endpointUrl = process.env.NODE_ENV === 'development'
-      ? `${process.env.NEXT_PUBLIC_LOCALHOST_BASE_ENDPOINT}/api/getPosts`
-      : `/api/getPosts`;
-    // const endpointUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/getPosts`;
+    const endpointUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/getPosts`;
     const response = await axios.get(endpointUrl);
     const blogData = response.data;
     return blogData.posts.filter((post: BlogPost) => post.categories.includes(id));
