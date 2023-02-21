@@ -1,15 +1,24 @@
 import Head from "next/head";
+import dynamic from "next/dynamic";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Box, CircularProgress, TextField, Typography } from "@mui/material";
 import useActiveCategory from "@/hooks/useActiveCategory";
 import usePagination from "@/hooks/useHandlePagination";
-import Header from "@/components/Header/Header";
-import BlogPosts from "@/components/BlogPosts/BlogPosts";
-import ChipFilters from "@/components/ChipFilters/ChipFilters";
-import NoResultsFound from "@/components/Errors/NoResultsFound";
-import SocialMediaLinks from "@/components/SocialMediaLinks/SocialMediaLinks";
 import { BlogData } from "../types/types";
+
+// Dynamic Components import
+const Header = dynamic(() => import("@/components/Header/Header"));
+const BlogPosts = dynamic(() => import("@/components/BlogPosts/BlogPosts"));
+const ChipFilters = dynamic(
+  () => import("@/components/ChipFilters/ChipFilters")
+);
+const NoResultsFound = dynamic(
+  () => import("@/components/Errors/NoResultsFound")
+);
+const SocialMediaLinks = dynamic(
+  () => import("@/components/SocialMediaLinks/SocialMediaLinks")
+);
 
 /**
  * The main blog page component that displays the blog title, search input field,

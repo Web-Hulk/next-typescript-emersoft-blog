@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Close, Menu } from "@mui/icons-material";
-import { useMediaQuery } from "@mui/material";
+import { IconButton, useMediaQuery } from "@mui/material";
 import { LinkItem } from "@/types/types";
 
-const HamburgerMenu = ({ links }: { links: LinkItem[] }) => {
+const Hamburger = ({ links }: { links: LinkItem[] }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   /* A MUI hook that returns a boolean value based on the media query. */
@@ -32,13 +32,14 @@ const HamburgerMenu = ({ links }: { links: LinkItem[] }) => {
 
   return (
     <div className="flex items-center justify-between lg:justify-end">
-      <button
+      <IconButton
         type="button"
         className="lg:hidden block focus:outline-none z-20 bg-transparent border-none cursor-pointer"
         onClick={toggleMenu}
+        aria-label="Menu"
       >
         {isOpen ? <Close className="text-white" /> : <Menu />}
-      </button>
+      </IconButton>
 
       <nav
         className={`lg:flex lg:items-center ${
@@ -75,4 +76,4 @@ const HamburgerMenu = ({ links }: { links: LinkItem[] }) => {
   );
 };
 
-export default HamburgerMenu;
+export default Hamburger;

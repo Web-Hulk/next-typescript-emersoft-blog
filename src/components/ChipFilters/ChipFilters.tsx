@@ -1,6 +1,7 @@
+import dynamic from "next/dynamic";
 import { Box } from "@mui/material";
-import ChipFilter from "./ChipFilter/ChipFilter";
 import { BlogData } from "@/types/types";
+const ChipFilter = dynamic(() => import("./ChipFilter/ChipFilter"));
 
 type ChipFiltersProps = {
   immutableBlogPosts: BlogData;

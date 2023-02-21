@@ -3,8 +3,6 @@ import axios from 'axios';
 import { BlogPost } from "../../types/types";
 
 const filterPostsByCategoryId = async (id: number) => {
-  console.log(process.env.NEXT_PUBLIC_API_BASE_URL);
-
   try {
     const endpointUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/getPosts`;
     const response = await axios.get(endpointUrl);

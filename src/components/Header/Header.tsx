@@ -1,6 +1,7 @@
-import Avatar from "./Avatar/Avatar";
-import HamburgerMenu from "./Hamburger/Hamburger";
+import dynamic from "next/dynamic";
 import { NAV_LINKS } from "@/data/links";
+const Avatar = dynamic(() => import("./Avatar/Avatar"));
+const Hamburger = dynamic(() => import("./Hamburger/Hamburger"));
 
 type HeaderProps = {
   handleAvatar: () => void;
@@ -15,7 +16,7 @@ const Header = ({ handleAvatar }: HeaderProps) => {
         handleAvatar={handleAvatar}
       />
 
-      <HamburgerMenu links={NAV_LINKS} />
+      <Hamburger links={NAV_LINKS} />
     </header>
   );
 };

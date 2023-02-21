@@ -1,7 +1,8 @@
+import dynamic from "next/dynamic";
 import { Box, Grid, Pagination, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
-import BlogPostItem from "./BlogPostItem/BlogPostItem";
 import { BlogData } from "@/types/types";
+const BlogPostItem = dynamic(() => import("./BlogPostItem/BlogPostItem"));
 
 type BlogPostsProps = {
   blogPosts: BlogData;
