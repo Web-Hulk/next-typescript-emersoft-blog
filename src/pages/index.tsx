@@ -22,30 +22,10 @@ const SocialMediaLinks = dynamic(
 );
 
 /**
- * This function will run on the server and will return an object with a property called props that
- * contains the data that we want to pass to the component.
- * @returns An object with a props property.
- */
-export async function getServerSideProps() {
-  const endpointUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/getPosts`;
-  const response = await axios.get(endpointUrl);
-
-  return {
-    props: {
-      immutableBlogPosts: response.data,
-    },
-  };
-}
-
-/**
  * The main blog page component that displays the blog title, search input field,
  * category filter chips, and blog post cards.
  */
-export default function Blog({
-  immutableBlogPosts,
-}: {
-  immutableBlogPosts: BlogData;
-}) {
+export default function Blog() {
   // Set the initial state for blog posts fetched from the server
   const [blogPosts, setBlogPosts] = useState<BlogData>({
     posts: [],
@@ -60,9 +40,18 @@ export default function Blog({
     useActiveCategory();
   const { currentPage, handlePageChange, setCurrentPage } = usePagination();
 
+  const immutableBlogPosts: BlogData = { ...blogPosts };
+
+  // Call the fetchPosts function when the component is mounted
   useEffect(() => {
-    setBlogPosts(immutableBlogPosts);
-  }, [immutableBlogPosts]);
+    fetchPosts();
+  }, []);
+
+  const fetchPosts = () => {
+    axios.get("/api/getPosts").then((response) => {
+      setBlogPosts(response.data);
+    });
+  };
 
   /**
    * A function that filters the blog posts by the selected category.
